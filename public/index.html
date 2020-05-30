@@ -3,9 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>BURGERS</title>
 </head>
 <body>
-  
+  <form>
+    <p>
+      <label for="name">Burgers:</label>
+      <input type="text" name="name" id="name">
+    </p>
+    <button id="addBurger">Add Burger</button>
+  </form>
+  <ol id="burgerMenu"></ol>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+
+    document.getElementById('addBurger').addEventListener('click', event => {
+      event.preventDefault()
+      axios.post('/api/burgers', {
+        name: document.getElementById('name').value
+      })
+        .then( () => {
+          document.getElementById('name').value = ''
+          getBurgers()
+        })
+        .catch(err => console.log(err))
+    } )
+
+    const getBurgers = () => {
+      axios.get('/api/burgers')
+        .then(({ data }) => {
+          document.getElementById('burgerMenu').innerHTML = ''
+          data.forEach(each => {
+            let burgerElem = document.createElement('li')
+            burgerElem.textContent = `${each.name}`
+            document.getElementById('burgerMenu').append(burgerElem)
+          })
+        })
+        .catch(err => console.log(err))
+    }
+    getBurgers()
+  </script>
 </body>
 </html>
