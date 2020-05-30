@@ -1,17 +1,24 @@
 const router = require('express').Router()
+const db = require('../db')
+
 
 // Burger Routes
 
 // GET all burgers
 router.get('/burgers', (req, res) => {
   console.log('GET BURGERS')
-  res.sendStatus(200)
+  db.query('SELECT * FROM burgers', (err, groceries) => {
+    if (err) { console.log(err) }
+    res.json(groceries)
+  })
 })
 
 // POST a burger
 router.post('/burgers', (req, res) => {
-  console.log('POST BURGER')
-  res.sendStatus(200)
+  db.query('INSERT INTO burgers SET ?', req.body, err => {
+    if (err) { console.log(err)}
+    res.sendStatus(200)
+  })
 })
 
 
