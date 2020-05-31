@@ -36,6 +36,11 @@
           data.forEach(each => {
             let burgerElem = document.createElement('li')
             burgerElem.textContent = `${each.name}`
+            if (each.devoured) {
+              burgerElem.style.backgroundColor = "green"
+            } else {
+              burgerElem.style.backgroundColor = "red"
+            }
             document.getElementById('burgerMenu').append(burgerElem)
           })
         })
