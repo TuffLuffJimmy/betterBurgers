@@ -20,11 +20,21 @@ router.post('/burgers', (req, res) => {
     res.json(info)
   })
 })
-
-router.put('/burgers', (req, res) => {
-  
+// GET
+router.put('/burgers/:id', (req, res) => {
+  orm.updateOne('burgers', req.body, {id: req.params.id}, info => {
+    res.json(info)
+  })
 })
 
+// DELETE
+router.delete('/burgers/:id', (req, res) => {
+  orm.deleteOne('burgers', { id: req.params.id }, info => {
+    res.json(info)
+  })
+})
+
+// handlebars??
 
 
 module.exports = router
